@@ -77,6 +77,7 @@ stop_application() {
         fi
    done
    echo ""
+   fuser -k 80/tcp
 }
 start() {
     start_application
