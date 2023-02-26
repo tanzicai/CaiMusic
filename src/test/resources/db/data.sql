@@ -1,0 +1,1 @@
+insert into  user_test  (user_id,user_name) values (1,'张三');
