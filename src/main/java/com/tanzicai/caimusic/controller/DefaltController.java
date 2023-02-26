@@ -14,4 +14,8 @@ public class DefaltController {
     public String sayHello(){
         return "hello";
     }
+
+    public void test(){
+
+    }
 }
