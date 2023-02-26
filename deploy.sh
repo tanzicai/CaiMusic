@@ -77,11 +77,10 @@ stop_application() {
         fi
    done
    echo ""
-   fuser -k 80/tcp
 }
 start() {
     start_application
-    health_check
+#    health_check
 }
 stop() {
     stop_application
