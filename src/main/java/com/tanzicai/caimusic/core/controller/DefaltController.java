@@ -1,4 +1,4 @@
-package com.tanzicai.caimusic.controller;
+package com.tanzicai.caimusic.core.controller;
 
 
 import org.springframework.stereotype.Controller;
@@ -7,10 +7,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/")
+@RequestMapping("/test")
 public class DefaltController {
 
-    @GetMapping("hello")
+    @GetMapping("/hello")
     public String sayHello(){
         return "hello";
     }

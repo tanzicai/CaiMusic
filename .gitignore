@@ -35,3 +35,4 @@ config
 .vscode/
 
 ### other ####
+/src/main/resources/application-dev.properties
