@@ -33,14 +33,8 @@ class UserServiceImplTest {
         user.setUpdated_time(new Date());
 
         User save = repository.save(user);
-
-        List<User> list = service.list();
-        for (User user1:
-                list ) {
-            System.out.println(user1.toString());
-
-        }
     }
+
 
     @Autowired
     public void setService(UserService service) {
