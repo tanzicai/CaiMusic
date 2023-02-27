@@ -10,9 +10,9 @@ import org.springframework.stereotype.Component;
 @Mapper(componentModel = "spring")
 @Component
 public interface UserMapper {
-    UserDto USerToDto(User user);
+    UserDto UserToDto(User user);
 
-    UserVo USerToVo(User user);
+    UserVo UserToVo(UserDto userDto);
 
 
 

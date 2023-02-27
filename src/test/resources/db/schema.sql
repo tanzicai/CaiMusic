@@ -1,7 +1,3 @@
-create table user_test(
-    user_id integer not null primary key,
-    user_name varchar(32) not null
-);
 
 CREATE TABLE user
 (

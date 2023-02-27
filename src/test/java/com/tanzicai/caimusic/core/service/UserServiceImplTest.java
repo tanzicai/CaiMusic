@@ -1,5 +1,6 @@
 package com.tanzicai.caimusic.core.service;
 
+import com.tanzicai.caimusic.core.dto.UserDto;
 import com.tanzicai.caimusic.core.entity.User;
 import com.tanzicai.caimusic.core.enums.Gender;
 import com.tanzicai.caimusic.core.repository.UserRepository;
@@ -22,17 +23,22 @@ class UserServiceImplTest {
     UserRepository repository;
     @Test
     void list() {
-        User user = new User();
-        user.setUsername("tanzicai");
-        user.setNcikname("test_nickname");
-        user.setEnable(true);
-        user.setLocked(false);
-        user.setPassword("12345");
-        user.setGender(Gender.MALE);
-        user.setCreated_time(new Date());
-        user.setUpdated_time(new Date());
+//        User user = new User();
+//        user.setUsername("tanzicai");
+//        user.setNickname("test_nickname");
+//        user.setEnabled(true);
+//        user.setLocked(false);
+//        user.setPassword("12345");
+//        user.setGender(Gender.MALE);
+//        user.setCreated_time(new Date());
+//        user.setUpdated_time(new Date());
+//
+//        User save = repository.save(user);
 
-        User save = repository.save(user);
+        for (UserVo userVo: service.list()) {
+            System.out.println(userVo.toString());
+        }
+
     }
 
 
@@ -45,5 +51,9 @@ class UserServiceImplTest {
     @Autowired
     public void setRepository(UserRepository repository) {
         this.repository = repository;
+    }
+
+    @Test
+    void testList() {
     }
 }

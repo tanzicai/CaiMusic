@@ -11,4 +11,6 @@ import java.util.List;
 public interface UserRepository extends JpaRepository<User, String> {
     @Override
     List<User> findAll();
+
+    List<User> findUserById(String id);
 }

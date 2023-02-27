@@ -1,6 +1,7 @@
 package com.tanzicai.caimusic.core.entity;
 
 
+import lombok.Data;
 import org.hibernate.annotations.CreationTimestamp;
 import org.hibernate.annotations.UpdateTimestamp;
 
@@ -10,10 +11,11 @@ import javax.persistence.Id;
 import java.util.Date;
 
 @Entity
+@Data
 public class Role {
     @Id
     @Column(unique = true)
-    private Long id;
+    private String id;
 
     @Column(unique = true)
     private String name;

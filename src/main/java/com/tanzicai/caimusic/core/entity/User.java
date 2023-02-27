@@ -18,7 +18,7 @@ public class User extends BaseEntity{
 
     private String username;
 
-    private String ncikname;
+    private String nickname;
 
     private String password;
 
@@ -27,11 +27,12 @@ public class User extends BaseEntity{
 
     private Boolean locked;
 
-    private Boolean enable;
+    private Boolean enabled;
 
     private String last_login_ip;
 
-    private Date lastLoginTime;
+    private Date last_login_time;
+
 
 
 

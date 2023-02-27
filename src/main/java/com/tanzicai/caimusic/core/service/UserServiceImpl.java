@@ -1,6 +1,7 @@
 package com.tanzicai.caimusic.core.service;
 
 
+import com.tanzicai.caimusic.core.dto.UserDto;
 import com.tanzicai.caimusic.core.entity.User;
 import com.tanzicai.caimusic.core.mapper.UserMapper;
 import com.tanzicai.caimusic.core.repository.UserRepository;
@@ -22,7 +23,7 @@ public class UserServiceImpl implements UserService{
 
     @Override
     public List<UserVo> list() {
-        return repository.findAll().stream().map(mapper::USerToVo).collect(Collectors.toList());
+        return repository.findAll().stream().map(mapper::UserToDto).collect(Collectors.toList()).stream().map(mapper::UserToVo).collect(Collectors.toList());
 //        return repository.findAll();
     }
 
