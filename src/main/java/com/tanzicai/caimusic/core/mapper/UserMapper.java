@@ -1,5 +1,6 @@
 package com.tanzicai.caimusic.core.mapper;
 
+import com.tanzicai.caimusic.core.dto.UserCreateRequest;
 import com.tanzicai.caimusic.core.dto.UserDto;
 import com.tanzicai.caimusic.core.entity.User;
 import com.tanzicai.caimusic.core.vo.UserVo;
@@ -8,12 +9,13 @@ import org.springframework.stereotype.Component;
 
 
 @Mapper(componentModel = "spring")
-@Component
 public interface UserMapper {
-    UserDto UserToDto(User user);
-
-    UserVo UserToVo(UserDto userDto);
 
 
+    UserVo toVo(UserDto userDto);
 
+
+    User createEntity(UserCreateRequest userCreateRequest);
+
+    UserDto toDto(User user);
 }

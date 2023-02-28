@@ -1,13 +1,13 @@
 package com.tanzicai.caimusic.core.controller;
 
 
-import com.tanzicai.caimusic.core.dto.UserDto;
-import com.tanzicai.caimusic.core.entity.User;
+import com.tanzicai.caimusic.core.dto.UserCreateRequest;
+import com.tanzicai.caimusic.core.mapper.UserMapper;
 import com.tanzicai.caimusic.core.service.UserService;
 import com.tanzicai.caimusic.core.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -16,15 +16,26 @@ import java.util.List;
 public class UserController {
 
     UserService userService;
+    UserMapper mapper;
 
+    @GetMapping()
+    List<UserVo> list() {
+        return userService.list();
+    }
 
-  @RequestMapping("/list")
-  public List<UserVo> list(){
-    return  userService.list();
-  }
+    @PostMapping
+    UserVo create(@Validated @RequestBody UserCreateRequest userCreateRequest){
+        return mapper.toVo(userService.create(userCreateRequest));
+    }
+
 
     @Autowired
-    public void setUserService(UserService userService) {
+    void setUserService(UserService userService) {
         this.userService = userService;
+    }
+
+    @Autowired
+    public void setUserMapper(UserMapper mapper) {
+        this.mapper = mapper;
     }
 }
