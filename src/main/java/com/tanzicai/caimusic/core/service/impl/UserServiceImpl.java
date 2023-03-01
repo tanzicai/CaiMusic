@@ -1,6 +1,10 @@
 package com.tanzicai.caimusic.core.service.impl;
 
 
+import com.auth0.jwt.JWT;
+import com.auth0.jwt.algorithms.Algorithm;
+import com.tanzicai.caimusic.core.config.SecurityConfig;
+import com.tanzicai.caimusic.core.dto.TokenCreateRequest;
 import com.tanzicai.caimusic.core.dto.UserCreateRequest;
 import com.tanzicai.caimusic.core.dto.UserDto;
 import com.tanzicai.caimusic.core.dto.UserUpdateRequest;
@@ -14,9 +18,13 @@ import com.tanzicai.caimusic.core.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -83,6 +91,25 @@ public class UserServiceImpl  implements UserService {
 
 
     @Override
+    public String createToken(TokenCreateRequest tokenCreateRequest) {
+        User user = loadUserByUsername(tokenCreateRequest.getUsername());
+        if (passwordEncoder.matches(user.getPassword(),tokenCreateRequest.getPassword())){
+            throw new BizException(ExceptionType.USER_PASSWORD_NOT_MATCH);
+        }
+        if (!user.isEnabled()){
+            throw new BizException(ExceptionType.USER_NOT_ENABLED);
+        }
+        if (!user.isAccountNonLocked()){
+            throw new BizException(ExceptionType.USER_LOCKED);
+        }
+        return JWT.create()
+                .withSubject(user.getUsername())
+                .withExpiresAt(new Date(System.currentTimeMillis() + SecurityConfig.EXPIRATION_TIME))
+                .sign(Algorithm.HMAC512(SecurityConfig.SECRET.getBytes()));
+
+    }
+
+    @Override
     public Page<UserDto> search(Pageable pageable) {
         return repository.findAll(pageable).map(mapper::toDto);
     }
@@ -124,6 +151,12 @@ public class UserServiceImpl  implements UserService {
     }
 
 
+    @Override
+    public UserDto getCurrentUser() {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = loadUserByUsername(authentication.getName());
+        return mapper.toDto(user);
+    }
 
     private void checkUserName(String username) {
         Optional<User> user = repository.findByUsername(username);

@@ -1,5 +1,6 @@
 package com.tanzicai.caimusic.core.service;
 
+import com.tanzicai.caimusic.core.dto.TokenCreateRequest;
 import com.tanzicai.caimusic.core.dto.UserCreateRequest;
 import com.tanzicai.caimusic.core.dto.UserDto;
 
@@ -28,4 +29,8 @@ public interface UserService extends  UserDetailsService {
      UserDto update(String id, UserUpdateRequest userUpdateRequest);
 
      Page<UserDto> search(Pageable pageable);
+
+    String createToken(TokenCreateRequest tokenCreateRequest);
+
+     UserDto getCurrentUser();
 }
